@@ -3,6 +3,18 @@
 - import json
 - from datetime import datetime, timedelta
 
+# Get GITHUB API Access
+A github token is needed for API calls<br />
+> https://github.com/settings/tokens
+
+Add GitHub username and token on line 28 and 29 <br />
+
+If you want to run the code WITHOUT token, you need to:
+- Comment line 63 and uncomment line 64
+- Comment line 78 and uncomment line 79
+
+THIS MAY FAIL AS GITHUB API CALLS ARE RESTRICTED, TOKEN IS RECOMMENDED FOR GITHUB API
+
 # How to Run
 
 Run script.py with 2 arguments corresponding to {owner, repository}, with a third optional argument to determine the N number of pull requests

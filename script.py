@@ -24,8 +24,10 @@ def update_histogram(bins, time):
     return bins, result
 
 # github token for increased API requests
-username = 'n-minhhai'
-token = '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'
+######################################################### PLEASE ADD USERNAME AND TOKEN
+username = ''
+token = ''
+#########################################################
 
 # state='closed' to filter out open pull requests that haven't been merged yet
 # sort='created' to retrieve the most recent pull requests
@@ -57,8 +59,12 @@ count = 0 # number of merged pull requests with approved review retrieved
 approved_IDs = [] # list of merged pull request IDs with approved reviews
 histogram = [0, 0, 0] # final result to be returned
 
-
-PR = requests.get(url=url, params=payload, auth=(username,token))
+############################## UNCOMMENT TO USE GITHUB TOKEN
+PR = requests.get(url=url, params=payload, auth=(username, token))
+#PR = requests.get(url=url, params=payload)
+if PR.status_code != 200:
+    print('API Call Failed.')
+    exit()
 
 # iterate through closed pull requests and search for approved reviews
 for pull_request in PR.json():
@@ -68,7 +74,12 @@ for pull_request in PR.json():
     if mock:
         reviews = requests.get(url=url + '/{}/reviews'.format(ID)) # retrieve reviews
     else:
-        reviews = requests.get(url=url + '/{}/reviews'.format(ID), params=payload, auth=(username, token)) # retrieve reviews
+        ############################################ UNCOMMENT TO USE GITHUB TOKEN
+        reviews = requests.get(url=url + '/{}/reviews'.format(ID), params=payload, auth=(username, token))
+        #reviews = requests.get(url=url + '/{}/reviews'.format(ID)) # retrieve reviews
+
+    if (reviews.status_code != 200):
+        continue
     
     # search for approved review
     for i in range(len(reviews.json())):
